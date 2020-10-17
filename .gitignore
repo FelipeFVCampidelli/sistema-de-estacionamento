@@ -1,0 +1,5 @@
+.env
+db
+incremental_db
+simulation
+*.log
