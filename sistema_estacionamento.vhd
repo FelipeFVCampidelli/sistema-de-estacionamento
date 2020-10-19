@@ -53,14 +53,19 @@ begin
 			end if;
 		
 		when AWAIT =>
-			if(sensor1 = '0' and sensor2 = '0') then
-				next_state <= IDLE;
-			else
+			if(vagas_disponiveis = "0000")
 				next_state <= AWAIT;
+			else
+				if(sensor1 = '0' and sensor2 = '0') then
+					next_state <= IDLE;
+				else
+					next_state <= AWAIT;
+				end if;
 			end if;
 		
 		when WAIT_PRINT_TICKET =>
 			if(check_ticket1 = '0') then --condição correta???
+				ticket_code2 <= placa_read2;
 				next_state <= OPEN_GATE;
 			else
 				next_state <= WAIT_PRINT_TICKET;
@@ -93,6 +98,7 @@ begin
 		
 		when OPEN_GATE =>
 			if(sensor1 = '1' or sensor2 = '1') then
+				open_gat <= '1';
 				next_state <= AWAIT;
 			else
 				next_state <= OPEN_GATE;
